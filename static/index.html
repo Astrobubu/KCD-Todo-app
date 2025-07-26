@@ -1,513 +1,429 @@
-  <!doctype html>
-  <html lang="en">
-  <head>
-  <meta charset="utf-8">
-  <title>Quest Journal – 3 Column</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html>
+<html lang="en">
 
-  <!-- 1 FONTS -------------------------------------------------------- -->
-  <style>
-  @font-face{
-    font-family:"ChampFleury";
-    src:url("1529ChampFleuryW01.woff2") format("woff2"),
-        url("1529ChampFleuryW01.woff")  format("woff");
-  }
-  @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
-  :root{ --font:"ChampFleury","Cinzel",serif; }
-  </style>
+<head>
+    <meta charset="utf-8">
+    <title>Quest Journal</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <!-- 2 GLOBAL LAYOUT – 3 COLUMNS ----------------------------------- -->
-  <style>
-  html,body{height:100%;margin:0}
-  body{
-    font-family:var(--font);
-    display:grid;
-    grid-template-columns: 1fr 550px 33%; /* cards | list | log */
-    background:url("blue-tile.png") repeat;
-    color:#2e1d10;
-    overflow:hidden;          /* never scroll the whole page        */
-  }
-  .rule {
-    width: 100%;
-    height: 34px;                     /* image is 190 px tall, so 30 keeps aspect */
-    background: url("seperator.png") center / contain no-repeat;
-    pointer-events: none;
-    margin: 1.2rem 0;                 /* space above & below the line */
-  }
+    <!-- 1 FONTS -------------------------------------------------------- -->
+    <style>
+        @font-face {
+            font-family: "ChampFleury";
+            src: url("1529ChampFleuryW01.woff2") format("woff2"), url("1529ChampFleuryW01.woff") format("woff");
+        }
+        
+        @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
+         :root {
+            --font: "ChampFleury", "Cinzel", serif;
+        }
+    </style>
 
-  /* —— COLUMN 1 : QUEST CARDS —————————————— */
-  #view{
-    overflow:hidden;display:flex;flex-direction:column;gap:1vh;padding:1vh;  
-    background: url("map-background.png");
-    background-size: cover;
-    background-position: right center;
-  }
-  #view .card{
-        margin-right: 1em;
+    <!-- 2 GLOBAL LAYOUT – 3 COLUMNS ----------------------------------- -->
+    <style>
+        #e-close,#tabs .tab{background:0 0;border:none;cursor:pointer}#tabs .tab span,.act-btn,.edit-btn{font-family:var(--font);font-size:.9rem}#e-close,#tabs .tab,.item{cursor:pointer}#log,body{background:url("blue-tile.png")}#side,#view,.card,body{overflow:hidden}#editor-box,#modal-mask{position:fixed;display:none}#log,#side{box-sizing:border-box}#footer,#tabs{display:flex;box-shadow:0 0 15px 0 rgba(0,0,0,.7);z-index:99}#footer,#tabs,.corner{z-index:99}#counter,.corner,.edge,.pct-badge,.rule{pointer-events:none}body,html{height:100%;margin:0}body{font-family:var(--font);display:grid;grid-template-columns:1fr 550px 33%;color:#2e1d10}.rule{width:100%;height:34px;background:url("seperator.png") center/contain no-repeat;margin:1.2rem 0}#view{display:flex;flex-direction:column;gap:1vh;padding:1vh;background:url("map-background.png") right center/cover}#view .card{margin-right:1em}.card{flex:1 1 0;position:relative;min-height:0;text-align:center;background:url("quest-background.png") center/contain no-repeat;filter:drop-shadow(0 2px 4px rgba(0, 0, 0, .8)) drop-shadow(0 6px 15px rgba(0, 0, 0, .3))}.item.inactive,.card.inactive{opacity:.65;filter:grayscale(.6) saturate(1.4);}.card .overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;max-width:60%;margin:auto;padding:clamp(.6rem,4cqh,2rem)}#footer,#log,#side,#tabs .tab,#tabs .tab img,#tabs .tab span,.item .shield-box{position:relative}.card .shield{width:clamp(38px,28cqh,55px)}.card h2{font-size:clamp(1rem, 7.5cqh, 2.1rem);margin:.3rem 0 .8rem}.card p{font-size:clamp(.72rem, 4.5cqh, 1rem);margin:.15rem 0}#tabs{background:#4d3715;border-bottom:3px solid #916b32;height:110px}#tabs .tab{flex:0 0 102px;height:110px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding-top:1.2em;padding-bottom:8px;color:#d6c48f}#counter,#tabs .tab::before,.corner,.edge,.pct-badge{position:absolute}#tabs .tab.active{background:#916b32;color:#fff}#tabs .tab::before{content:"";inset:0;background:url("shield-background.png") center/cover no-repeat;z-index:0;box-shadow:inset 0 0 17px 13px rgba(0,0,0,.2)}#e-close{padding-top:6px;padding-bottom:6px;font-size:1.4rem;line-height:1}#tabs .tab img{z-index:1;width:55%;height:auto;filter:drop-shadow(0 0 2px #0006);margin:0;filter:drop-shadow(2px 4px 6px black)}#tabs .tab span{z-index:1;line-height:1;text-shadow:0 1px 1px #0008;margin:0}#list{flex:1;overflow:auto;padding:.8rem}.item{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem;padding:1.1rem .8rem;margin-bottom:.7rem;background:#fefaf0;border:1px solid #b49a6c;border-radius:6px;transition:background .15s}.item:hover{background:#f4ead6}.item img{height:35px;width:auto;flex:0 0 auto}.item.done{color:#797;}.act-btn,.edit-btn{padding:.25rem 1rem;border:2px solid #6f4c19;border-radius:6px;background:linear-gradient(#b48b45,#8f642d);color:#fff;text-shadow:0 1px 1px #000;box-shadow:0 0 3px #0005;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .15s}.item:hover .act-btn,.item:hover .edit-btn{opacity:1;visibility:visible}.act-btn.inactive{background:linear-gradient(#676868,#555);border-color:#444}#log{overflow:visible;display:flex;flex-direction:column;height:100%;min-height:0;padding:2rem;border:19.5px solid transparent;border-image:url("border.png") 32 fill repeat;border-image:url("border.png") 175.3 fill repeat}.corner{width:105px;height:105px;background-image:url("border-corner.png");background-size:cover}#side{display:flex;flex-direction:column;height:100%;background:url("paper-background.png");box-shadow:inset 0 0 10px #0007;padding-left:20px;padding-right:20px}#side::after,#side::before{content:'';position:absolute;top:0;bottom:0;width:20px;background:url('sideborder.png') center/contain repeat-y;pointer-events:none}#side::before{left:0}#side::after{right:0;transform:scaleX(-1)}.corner.tl{top:0;left:0;transform:translate(-18.7%,-20%)}.corner.tr{top:0;right:0;transform:translate(18.5%,-20%) scaleX(-1)}.corner.bl{bottom:0;left:0;transform:translate(-18.5%,20%) scaleY(-1)}.corner.br{bottom:0;right:0;transform:translate(18.5%,20%) scale(-1,-1)}.edge{height:19.6px;width:100%;background-image:url("border90.png");background-size:contain;background-repeat:repeat-x;z-index:4}.edge.top{top:-20px}.edge.bottom{bottom:-21.4px;transform:rotate(180deg)}::-webkit-scrollbar{width:25px}::-webkit-scrollbar-track{background:0 0}::-webkit-scrollbar-thumb{background:url('slider.png') center center/contain no-repeat;border-radius:20px;min-height:100px}::-webkit-scrollbar-corner{background:0 0}#log-content{position:relative; z-index:5;flex:1 1 auto;overflow:auto;min-height:0;font-size:1.05rem;color:#d6c48f;padding:2em;max-height:100%;overflow:auto}#log-content h2{font-size:1.45rem;margin-top:0}#log-content li{margin-bottom:.3rem}.task-row{display:flex!important;align-items:center;gap:.45rem;margin:.25rem 0}#tabs .tab.active img{filter:brightness(1.3) drop-shadow(0 0 3px #ffd86a)}.task-row input[type=text]{border:1px solid #b49a6c;border-radius:3px;padding:.2rem .4rem;background:#fffbe9;flex:1 1 auto}.task-row input[type=checkbox]{width:10%!important;accent-color:#916b32;height:2em}#modal-mask{inset:0;background:#0009;backdrop-filter:blur(2px);z-index:99}#editor-box{top:50%;left:50%;transform:translate(-50%,-50%);background:#f9f3e6;border:3px solid #916b32;border-radius:8px;padding:1rem 1.3rem;width:480px;max-width:95%;max-height:90vh;overflow-y:auto;box-shadow:0 0 20px #0006;z-index:100}#editor-box h3{margin-top:0;text-align:center}#editor-box label{font-size:.9rem;display:block;margin:.5rem 0}#editor-box input,#editor-box select,#editor-box textarea{width:100%;box-sizing:border-box;border:1px solid #b49a6c;border-radius:3px;padding:.25rem .4rem;font-family:inherit;font-size:.85rem;background:#fffbe9}#editor-box button,.gold-btn{font-size:.9rem;padding:.25rem 1rem;background:linear-gradient(#b48b45,#8f642d);text-shadow:0 1px 1px #000;box-shadow:0 0 3px #0005;font-family:var(--font);cursor:pointer;color:#fff}#editor-box button{margin:.45rem .25rem .2rem 0;border:2px solid #6f4c19;border-radius:6px}#editor-box button:hover,.item .act-btn:hover,.item .edit-btn:hover{background:linear-gradient(#d0a958,#b38346);border-color:#6f4c19}#add-subtask{display:flex;gap:.4rem;margin:.5rem 0 .3rem 3.2em}#add-subtask input{flex:1;font-family:var(--font);font-size:1rem;padding:.15rem .3rem .1rem;background:0 0;border:none;border-bottom:1px solid transparent;color:#d6c48f;transition:border-color .15s;margin-left:3.3em}#add-subtask input::placeholder{color:#d6c48f80}#add-subtask input:focus,#add-subtask input:hover{border-bottom:1px solid #916b32;outline:0}#add-subtask .add-btn{padding:.05rem .75rem;font-size:1.1rem}.gold-btn{border:2px solid #6f4c19;border-radius:6px;transition:background .15s}.gold-btn:hover{background:linear-gradient(#d0a958,#b38346)}.red-btn{composes:gold-btn;background:linear-gradient(#b05050,#8d2d2d);border-color:#702020}.del-btn:hover{background:linear-gradient(#d46d6d,#a24141)!important}#notes-box{white-space:pre-wrap;word-break:break-word;max-height:25rem;overflow:auto}#notes-box em{color:#d6c48f50}.item .shield-box{width:35px;height:35px;flex:0 0 auto;display:flex;align-items:center;justify-content:center}.pct-badge{top:.35rem;left:55%;transform:translateX(-50%);font-size:.9em;color:#cdbb85;text-shadow:0 3px 11px #000000d1}.item.done .pct-badge{color:#90a66f}#footer{height:156px;background:url("newquestbg.png") center/cover no-repeat;padding:0;flex-direction:column;align-items:center;justify-content:center}#add-quest-btn{position:absolute!important;top:3.1em!important;all:unset;font-family:var(--font);font-size:1.4rem;color:#e9d0a0;cursor:pointer;line-height:1;transition:color .15s,text-shadow .15s}#add-quest-btn:hover{color:#fff;text-shadow:0 0 6px #ffd86a}#counter{top:1.7em;font-size:.85rem;color:#d6c48f}.twisty{ cursor:pointer; user-select:none; };
 
-  }
-  .card{flex:1 1 0;position:relative;min-height:0;text-align:center;overflow:hidden;
-        background:url("quest-background.png") center / contain no-repeat;    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) drop-shadow(0 6px 15px rgba(0, 0, 0, 0.3));}
 
-  .card.inactive{opacity:.55;filter:grayscale(1);}  /* grey‑out */
-  .card .overlay{position:absolute;inset:0;display:flex;flex-direction:column;
-                 align-items:center;justify-content:center;max-width:60%;margin:auto;
-                 padding:clamp(.6rem,4cqh,2rem);}                
-  .card .shield{width:clamp(38px,28cqh,55px);}   
-  .card h2{font-size:clamp(1rem,7.5cqh,2.1rem);margin:.3rem 0 .8rem}
-  .card p {font-size:clamp(.72rem,4.5cqh,1rem);margin:.15rem 0}
 
-  /* —— COLUMN 2 : SIDEBAR (TABS + LIST) —————————— */
-  #side{display:flex;flex-direction:column;height:100%;background:url("paper-background.png") repeat;
-        box-shadow:inset 0 0 10px #0007;overflow:hidden;}
-
-  #tabs{display:flex;background:#4d3715;border-bottom:3px solid #916b32;height:110px;}
-  #tabs .tab {
-    flex: 0 0 102px;
-    height: 110px;
-    position: relative;
-
-    /* two rows: shield up top, label down below */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;  /* push first & last items apart */
-
-    /* give a little breathing room inside the cell */
-    padding-top: 1.2em;
-    padding-bottom: 8px;
-
-    color: #d6c48f;
-    border: none;
-    background: none;
-    cursor: pointer;
-  }
-
-  #tabs .tab.active{background:#916b32;color:#fff;}
-  #tabs .tab::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: url("shield-background.png") center/cover no-repeat;
-    z-index: 0;
-    box-shadow:inset 0px 0px 17px 13px rgba(0, 0, 0, 0.2);
-  }
-#e-close{
-     padding-top: 6px;
-    padding-bottom: 6px;
-  background:none;border:none;font-size:1.4rem;
-  line-height:1; cursor:pointer;
+.item.dragging{
+    opacity:.55;
+    transform:scale(1.05) rotate(.8deg);
+    box-shadow:0 10px 22px #0005;
+    cursor:grabbing;                     /* clenched-hand cursor      */
 }
-  #tabs .tab img {
-    position: relative;
-    z-index: 1;
-    width: 55%;
-    height: auto;
-    filter: drop-shadow(0 0 2px #0006);
-    /* remove any margin-bottom: */
-    margin: 0;
-    filter: drop-shadow(2px 4px 6px black);
-  }
-  #tabs .tab span {
-    position: relative;
-    z-index: 1;
-    font-family:var(--font);
+.item.done{background:none;color:#858585;text-decoration:line-through;}
 
-    font-size: .9rem;
-    line-height: 1;
-    text-shadow: 0 1px 1px #0008;
-    /* remove old margins, it'll sit flush below the icon */
-    margin: 0;
-  }
-
-  /* Quest list */
-  #list{flex:1;overflow:auto;padding:.8rem;}
-  .item{display:flex;justify-content:space-between;align-items:flex-start;
-        gap:.6rem;padding:.5rem .8rem;margin-bottom:.7rem;
-        background:#fefaf0;border:1px solid #b49a6c;border-radius:6px;
-        cursor:pointer;transition:background .15s;}
-  .item:hover{background:#f4ead6;}
-  .item img{height:35px;width:auto;flex:0 0 auto;}
-  .item.done{color:#797;background:#eee9da;border-style:dashed;text-decoration:line-through;}
-  .item.inactive{opacity:.55;filter:grayscale(1);}  
-
-  .edit-btn,.act-btn{font-family:var(--font);font-size:.9rem;padding:.25rem 1rem;
-    border:2px solid #6f4c19;border-radius:6px;background:linear-gradient(#b48b45,#8f642d);
-    color:#fff;text-shadow:0 1px 1px #000;box-shadow:0 0 3px #0005;cursor:pointer;
-    opacity:0;visibility:hidden;transition:opacity .15s;}
-  .item:hover .edit-btn,.item:hover .act-btn{opacity:1;visibility:visible;}
-  .act-btn.inactive{background:linear-gradient(#676868,#555);border-color:#444;}
-
-  /* —— COLUMN 3 : LOG PANE —————————————— */
-  #log {
-    position: relative;
-    background: url("blue-tile.png") repeat;
-    overflow: visible;
-
-    /* Border stays inside, and content is padded accordingly */
-    box-sizing: border-box;
-    padding: 2rem;
-
-    /* Decorative border */
-    border: 32px solid transparent;
-    border-image: url("border.png") 32 fill repeat;
-  }
-
-
-  .corner {
-    position: absolute;
-    width: 105px;
-    height: 105px;
-    background-image: url("border-corner.png");
-    background-size: cover;
-    z-index: 99;
-    pointer-events: none;
-  }
-#side{
-    position:relative;            /* anchor pseudo-elements     */
-    padding-left:20px;            /* room so content not hidden */
-    padding-right:20px;
-    box-sizing:border-box;        /* keep the 550 px width you set */
+.item{
+    background:none;border:none;padding:.6rem .4rem;
 }
+.item:hover{background:rgba(255,255,255,0.35);}
+.heading{
+    font-family:var(--font);
+    font-size:1.1rem;letter-spacing:.03em;
+    color:#5b5b5b;
+    margin:.9rem .2rem .35rem;
+    position:relative;
+}
+.heading::after{                         /* faint horizontal rule     */
+    content:'';position:absolute;left:8rem;right:0;top:58%;
+    height:1px;background:#9b9b9b33;
+}
+.twisty{
+    width:.9rem;height:.9rem;
+    display:inline-block;
+    background:url("triangle.png") center/contain no-repeat;
+    transition:transform .15s;transform:rotate(270deg);
+}
+.twisty.open{transform:rotate(0deg);}
 
-/* identical vertical strips */
-#side::before,
-#side::after{
+
+.item.drop-hint::before{               
     content:'';
-    position:absolute;
-    top:0; bottom:0;
-    width:20px;                   /* ≈ sideborder.png width     */
-    background:url('sideborder.png') center/contain repeat-y;
-    pointer-events:none;          /* clicks go through          */
+    position:absolute;left:0;right:0;top:-2px;
+    height:3px;background:#654321;
+    animation:fadeIn .28s ease-out;
 }
 
-/* left uses the image as-is, right is mirrored for symmetry */
-#side::before{ left:0; }
-#side::after { right:0; transform:scaleX(-1); }
-
-  /* Push corners out so they don't get squashed */
-  .corner.tl { top: 0; left: 0; transform: translate(-18.7%, -20%); }
-  .corner.tr { top: 0; right: 0; transform: translate(18.5%, -20%) scaleX(-1); }
-  .corner.bl { bottom: 0; left: 0; transform: translate(-18.5%, 20%) scaleY(-1); }
-  .corner.br { bottom: 0; right: 0; transform: translate(18.5%, 20%) scale(-1, -1); }
-  /* Borders */
-  #log {
-    border-width: 20px;
-    border-style: solid;
-    border-image: url("border.png") 175.3  fill repeat;
-  }
-  .edge {
-    position: absolute;
-    height: 19.6px;
-    width: 100%;
-    background-image: url("border90.png");
-    background-size: contain;
-    background-repeat: repeat-x;
-    z-index: 4;
-    pointer-events: none;
-  }
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 
-  .edge.top {
-    top: -21.5px;
-  }
+    </style>
+</head>
 
-  .edge.bottom {
-    bottom:-21.4px;
-      transform: rotate(180deg);
-  }
-::-webkit-scrollbar {
-  width: 25px;
-}
+<body>
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+    <!-- COLUMN 1 : QUEST CARDS -->
+    <section id="view"></section>
 
-::-webkit-scrollbar-thumb {
-  background: url('slider.png') center center / contain no-repeat;
-  border-radius: 20px;
-  min-height: 100px;
-/*  box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/
-}
+    <!-- COLUMN 2 : SIDEBAR -->
+    <aside id="side">
+        <nav id="tabs">
+            <button class="tab active" data-cat="all"><img src="all.png"><span>All</span></button>
+            <button class="tab" data-cat="main"><img src="main.png"><span>Main</span></button>
+            <button class="tab" data-cat="side"><img src="side.png"><span>Side</span></button>
+            <button class="tab" data-cat="task"><img src="task.png"><span>Task</span></button>
+            <button class="tab" data-cat="done"><img src="done.png"><span>Done</span></button>
+        </nav>
+        <div id="list"></div>
+        <div id="footer">
+            <div id="counter"></div>
 
-/* Optional: Hide ugly scroll corner */
-::-webkit-scrollbar-corner {
-  background: transparent;
-}
+            <button id="add-quest-btn">Add Quest</button>
+        </div>
+    </aside>
 
-  #log-content{
-    font-size:1.05rem;
-    color:#d6c48f;
-    padding:2em;
-    max-height:100%;          /* NEW — keeps it inside the frame   */
-    overflow:auto;            /* NEW — you can now scroll long text*/
-  }
+    <!-- COLUMN 3 : LOG PANE -->
+    <section id="log">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+        <div class="edge top"></div>
+        <div class="edge bottom"></div>
 
-  #log-content h2{font-size:1.45rem;margin-top:0;}
-  #log-content li{margin-bottom:.3rem;}
+        <div id="log-content"></div>
+    </section>
 
-  .task-row{display:flex !important;align-items:center;gap:.45rem;margin:.25rem 0;}
-  #tabs .tab.active img{filter:brightness(1.3) drop-shadow(0 0 3px #ffd86a);}
+    <!-- Modal editor (re‑used) -->
+    <div id="modal-mask"></div>
+<div id="editor-box"></div>
 
-  .task-row input[type="text"]{border:1px solid #b49a6c;border-radius:3px;
-                               padding:.2rem .4rem;background:#fffbe9;}
-  .task-row input[type="text"]{flex:1 1 auto;}   /* NEW — grows, stays inline */
+<script>
 
-  .task-row input[type="checkbox"]{width:10% !important;accent-color:#916b32;width:2em;height:2em;}
-  /* MODAL EDITOR (mask covers entire screen) */
-  #modal-mask{position:fixed;inset:0;background:#0009;backdrop-filter:blur(2px);display:none;z-index:99;}
-  #editor-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-    background:#f9f3e6;border:3px solid #916b32;border-radius:8px;padding:1rem 1.3rem;
-    width:480px;max-width:95%;box-shadow:0 0 20px #0006;display:none;z-index:100;}
-  #editor-box h3{margin-top:0;text-align:center}
-  #editor-box label{font-size:.9rem;display:block;margin:.5rem 0}
-  #editor-box input,#editor-box textarea,#editor-box select{width:100%;box-sizing:border-box;
-    border:1px solid #b49a6c;border-radius:3px;padding:.25rem .4rem;
-    font-family:inherit;font-size:.85rem;background:#fffbe9;}
-  #editor-box button{margin:.45rem .25rem .2rem 0;font-family:var(--font);font-size:.9rem;
-    padding:.25rem 1rem;border:2px solid #6f4c19;border-radius:6px;
-    background:linear-gradient(#b48b45,#8f642d);color:#fff;text-shadow:0 1px 1px #000;
-    box-shadow:0 0 3px #0005;cursor:pointer;}
-  #editor-box button:hover{background:linear-gradient(#d0a958,#b38346);border-color:#6f4c19;}
-  .item .edit-btn:hover,.item .act-btn:hover{background:linear-gradient(#d0a958,#b38346);border-color:#6f4c19;
 
+
+    const TOOL_HTML = `
+  <style>
+    .ai-toolbar{all:unset;position:absolute;display:flex;gap:.8rem;
+                padding:.6rem .5rem;background:#333;border-radius:6px;
+                box-shadow:0 3px 12px #0007;z-index:9999}
+    .ai-btn{all:unset;color:#fff;font:600 .85rem/1 var(--font, sans-serif);
+            cursor:pointer;user-select:none}
+    .ai-btn:hover{color:#ffd86a}
+  </style>
+  <div class="ai-toolbar">
+    <button class="ai-btn" data-action="rephrase">Rephrase</button>
+    <button class="ai-btn" data-action="summarize">Summarize</button>
+    <button class="ai-btn" data-action="expand">Expand</button>
+  </div>`;
+
+/* place the toolbar once (hidden) */
+document.body.insertAdjacentHTML('beforeend', TOOL_HTML);
+const bar = document.querySelector('.ai-toolbar');
+
+/* track where selection started so we can restore it */
+let activeEl, selStart, selEnd;
+
+/* show toolbar when user selects inside an <input> or <textarea> */
+document.addEventListener('mouseup', e => {
+  const el = e.target;
+  if (!(el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement))
+      return bar.style.display = 'none';
+
+  const start = el.selectionStart, end = el.selectionEnd;
+  if (start === end) return bar.style.display = 'none';        // nothing selected
+
+  /* remember the context so we can replace later */
+  activeEl = el; selStart = start; selEnd = end;
+
+  /* position bar just under the caret */
+  const {left, top, height} = el.getBoundingClientRect();
+  const lineHeight = parseFloat(getComputedStyle(el).lineHeight) || 20;
+  bar.style.left = `${left + el.clientLeft}px`;
+  bar.style.top  = `${top  + el.clientTop + (start===0?0:height) + 20}px`;
+  bar.style.display = 'flex';
+});
+
+/* handle button clicks */
+bar.addEventListener('click', async e => {
+  const btn = e.target.closest('.ai-btn');
+  if (!btn) return;
+  bar.style.display = 'none';                         // hide immediately
+
+  const action = btn.dataset.action;
+  const selected = activeEl.value.slice(selStart, selEnd);
+
+  /* simple prompts – tune as you like */
+  const prompts = {
+    rephrase : `Rephrase the following text and make it sound better :\n\n"${selected}"`,
+    summarize: `Summarize the following :\n\n"${selected}"`,
+    expand   : `Expand the following text a little bit (not too much unless i ask for it) and make it sound better: \n\n"${selected}"`
   };
 
+  try{
+    const rsp   = await fetch('/ai-rewrite', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({prompt:prompts[action]})
+    });
+    const {text} = await rsp.json();
 
-#add-subtask{
-    display:flex;
-    gap:.4rem;
-    margin:.5rem 0 .3rem;
-    margin-left: 3.2em;
-} 
-
-/* input: transparent, faint placeholder, brown underline only on hover/focus */
-#add-subtask input{
-    flex:1;
-    font-family:var(--font);
-    font-size:1rem;
-    padding:.15rem .3rem .1rem;
-    background:transparent;
-    border:none;
-    border-bottom:1px solid transparent;
-    color:#d6c48f;                      /* same parchment text colour          */
-    transition:border-color .15s;
-    margin-left: 3.3em;
-}
-#add-subtask input::placeholder{color:#d6c48f80;}   /* faint text                   */
-#add-subtask input:hover,
-#add-subtask input:focus{
-    border-bottom:1px solid #916b32;    /* accented brown on hover/focus       */
-    outline:none;
-}
-
-/* button: re-use gold-btn palette, slimmer padding */
-#add-subtask .add-btn{
-    padding:.05rem .75rem;
-    font-size:1.1rem;
-}
-
-  .gold-btn{
-    font-family:var(--font);
-    font-size:.9rem;
-    padding:.25rem 1rem;
-    border:2px solid #6f4c19;
-    border-radius:6px;
-    background:linear-gradient(#b48b45,#8f642d);
-    color:#fff;
-    text-shadow:0 1px 1px #000;
-    box-shadow:0 0 3px #0005;
-    cursor:pointer;
-    transition:background .15s;
-}
-.gold-btn:hover{
-    background:linear-gradient(#d0a958,#b38346);   /* brighter on hover   */
-}
-
-/* red delete variant uses the same hover idea */
-.red-btn{
-    composes: gold-btn;               /* if your build supports it … */
-    background:linear-gradient(#b05050,#8d2d2d);
-    border-color:#702020;
-}
-.del-btn:hover{
-    background:linear-gradient(#d46d6d,#a24141)!important;
-}
-
-
-/* notes box – keep line-breaks, wrap long words */
-#notes-box{
-    white-space:pre-wrap;
-    word-break:break-word;
-    max-height:25rem;                 /* scrolls independently       */
-    overflow:auto;
-}
-
-  </style>
-  </head>
-  <body>
-
-  <!-- COLUMN 1 : QUEST CARDS -->
-  <section id="view"></section>
-
-  <!-- COLUMN 2 : SIDEBAR -->
-  <aside id="side">
-    <nav id="tabs">
-      <button class="tab active" data-cat="all"><img src="all.png"><span>All</span></button>
-      <button class="tab" data-cat="main"><img src="main.png"><span>Main</span></button>
-      <button class="tab" data-cat="side"><img src="side.png"><span>Side</span></button>
-      <button class="tab" data-cat="task"><img src="task.png"><span>Task</span></button>
-      <button class="tab" data-cat="done"><img src="done.png"><span>Done</span></button>
-    </nav>
-    <div id="list"></div>
-    <div id="footer" style="padding:.6rem;text-align:center">
-      <div id="counter" style="font-size:.8rem;margin-bottom:.4rem;"></div>
-      <button id="add-quest-btn"
-              class="edit-btn gold-btn"
-              style="opacity:1;visibility:visible;width:100%">＋ Add Quest</button>
-  </div>
-
-  </aside>
-
-  <!-- COLUMN 3 : LOG PANE -->
-  <section id="log">
-    <div class="corner tl"></div>
-    <div class="corner tr"></div>
-    <div class="corner bl"></div>
-    <div class="corner br"></div>
-      <div class="edge top"></div>
-    <div class="edge bottom"></div>
-
-    <div id="log-content"></div>
-  </section>
-
-  <!-- Modal editor (re‑used) -->
-  <div id="modal-mask"></div>
-  <div id="editor-box"></div>
-
-  <script>
-  /* ------------------------------------------------------------------ */
-  /*  DATA + FIRST‑RUN BUILD                                            */
-  /* ------------------------------------------------------------------ */
-  let quests = [];
-function saveQuest(q){
-   const clean = structuredClone(q);   // <-- add this line
-   fetch(`/api/quests/${q.id}`,{
-       method:'PUT',
-       headers:{'Content-Type':'application/json'},
-       body:JSON.stringify(clean)
-   });
-}
-  function canActivate(){
-     return quests.filter(q => q.active!==false && q.category!=='done').length < 3;
+    /* replace selection + keep cursor at end of new text */
+    activeEl.setRangeText(text, selStart, selEnd, 'end');
+  }catch(err){
+    alert('AI request failed.  Check console / server logs.');
+    console.error(err);
   }
-  document.getElementById('add-quest-btn').onclick = async ()=>{
-    if(!canActivate()){
-        alert('Finish or deactivate a quest first (max 3 active).');
-        return;
-    }
-    // 1) ask the server for a blank quest (comes back with a fresh id)
-    const rsp   = await fetch('/api/quests/blank', {method:'POST'});
-    const blank = await rsp.json();
-    quests.push(blank);
+});
 
-    // 2) open it immediately in the editor
-    openEditor(quests.length-1);
-};
+        /* ------------------------------------------------------------------ */
+        /*  DATA + FIRST‑RUN BUILD                                            */
+        /* ------------------------------------------------------------------ */
+        let quests = [];
+        let order = [];          // will mirror quests.map(q=>q.id) on load
+
+        function saveQuest(q) {
+            const clean = structuredClone(q); // <-- add this line
+            fetch(`/api/quests/${q.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(clean)
+            });
+        }
+
+        function canActivate() {
+            return quests.filter(q => q.active !== false && q.category !== 'done').length < 3;
+        }
+        document.getElementById('add-quest-btn').onclick = async() => {
+
+            // 1) ask back-end for a fresh blank quest
+            const rsp = await fetch('/api/quests/blank', {
+                method: 'POST'
+            });
+            const blank = await rsp.json();
+
+            // 2) if three quests are active already → start the new one inactive
+            if (!canActivate()) {
+                blank.active = false; // keep it hidden from the card column
+            }
+
+            quests.push(blank);
+
+            // 3) open the editor so the user can fill it in right away
+            openEditor(quests.length - 1);
+        };
+
+        const view = document.getElementById('view'),
+            list = document.getElementById('list'),
+            tabs = document.getElementById('tabs'),
+            logPane = document.getElementById('log-content');
+
+        fetch('/api/quests')
+          .then(r=>r.json())
+          .then(js=>{
+              quests = js;
+
+              order = JSON.parse(localStorage.getItem('questOrder') || '[]');
+              if(order.length !== quests.length) order = quests.map(q=>q.id);
+
+              /* ★ restore which quests were open */
+              const openIds = JSON.parse(localStorage.getItem('openQuests') || '[]');
+              quests.forEach(q => q._open = openIds.includes(q.id));
 
 
-  const view  = document.getElementById('view'),
-        list  = document.getElementById('list'),
-        tabs  = document.getElementById('tabs'),
-        logPane = document.getElementById('log-content');
+            renderCards();
+            renderList('all');
+        });
 
-  fetch('/api/quests').then(r=>r.json()).then(js=>{quests=js;renderCards();renderList('all');});
+        /* ------------------------------------------------------------------ */
+        /*  CARD COLUMN                                                       */
+        /* ------------------------------------------------------------------ */
+        function renderCards() {
+            view.innerHTML = '';
+            quests.filter(q => q.active !== false).slice(0, 3).forEach(q => view.appendChild(makeCard(q)));
 
-  /* ------------------------------------------------------------------ */
-  /*  CARD COLUMN                                                       */
-  /* ------------------------------------------------------------------ */
-  function renderCards(){
-    view.innerHTML='';
-    quests.filter(q=>q.active!==false).slice(0,3).forEach((q,idx)=>view.appendChild(makeCard(q,idx)));
-  }
-  function makeCard(q,idx){
-    const d=document.createElement('div');
-    d.className='card'+(q.active===false?' inactive':'')+(q.category==='done'?' done':'');
-    d.dataset.idx=idx;
-    d.innerHTML=`<div class="overlay"><img class="shield" src="shield-${q.category}.png"><h2>${q.title}</h2><p>${q.objective||''}</p><p>${q.description||''}</p></div>`;
-    return d;
-  }
-  function refreshAll() {
-      renderCards();                                       // rebuild the 3 big cards
-      const currentTab = document.querySelector('#tabs .tab.active')
-                         .dataset.cat;                     // stay on the same tab
-      renderList(currentTab);                              // rebuild the sidebar list
-  }
+        }
 
-  view.addEventListener('click',e=>{const c=e.target.closest('.card');if(c)openDrawer(+c.dataset.idx)});
+        function makeCard(q){
+            const d = document.createElement('div');
+            d.className = 'card' + (q.active === false ? ' inactive' : '') + (q.category === 'done' ? ' done' : '');
+            d.dataset.idx = quests.indexOf(q);   // true position in the master array
+            const shieldCat =
+                (q.category === 'done' && q.prevCat) ? q.prevCat : q.category;
 
-  /* ------------------------------------------------------------------ */
-  /*  SIDEBAR LIST + TABS                                               */
-  /* ------------------------------------------------------------------ */
-  function renderList(cat){
-    list.innerHTML = '';
 
-    // which quests belong in this tab?
-    const shown = quests.filter(q=>{
-        if(cat==='done')      return q.category==='done';     // <- KEEP
-        if(cat==='all')       return true;
-        return (q.category===cat) || (q.category==='done' && q.prevCat===cat);
+
+            d.innerHTML = `<div class="overlay"><img class="shield" src="shield-${shieldCat}.png"><h2>${q.title}</h2><p>${q.objective||''}</p><p>${q.description||''}</p></div>`;
+            return d;
+
+        }
+
+        function refreshAll(){
+            renderCards();
+            renderList(document.querySelector('#tabs .tab.active').dataset.cat);
+
+            /* ★ persist which quests are open */
+            const openIds = quests.filter(q => q._open).map(q => q.id);
+            localStorage.setItem('openQuests', JSON.stringify(openIds));
+        }
+
+        view.addEventListener('click', e => {
+            const c = e.target.closest('.card');
+            if (c) openDrawer(+c.dataset.idx)
+        });
+
+        /* ------------------------------------------------------------------ */
+        /*  SIDEBAR LIST + TABS                                               */
+        /* ------------------------------------------------------------------ */
+
+function makeRow(q, indent = 0) {
+    const off   = q.active === false;
+    const kids  = getChildren(q);
+    const open  = !!q._open;
+
+    const total = q.subtasks?.length ?? 0;
+    const done  = q.subtasks?.filter(t => t.done).length ?? 0;
+    const pct   = total ? Math.round(done / total * 100) : 0;
+
+    /* arrow: collapses children, use a very narrow spacer if none */
+    const arrowHTML = kids.length
+      ? `<span class="twisty ${open?'open':''}"></span>`
+      : `<span style="display:inline-block;width:.9rem"></span>`;
+
+    /* act/de-act button (omit for finished quests) */
+    const actBtn = q.category === 'done' ? '' :
+        `<button class="act-btn ${off ? 'inactive' : ''}">
+             ${off ? 'Activate' : 'Deactivate'}
+         </button>`;
+
+    /* row element ---------------------------------------------------- */
+    const div = document.createElement('div');
+    div.className   = 'item' + (off ? ' inactive' : '') +
+                      (q.category === 'done' ? ' done' : '');
+    div.dataset.idx = quests.indexOf(q);
+    div.style.paddingLeft = `calc(.5rem + ${indent * .9}rem)`;  // tighter
+
+    div.innerHTML = `
+        <div style="display:flex;align-items:center;gap:.85rem">
+           ${arrowHTML}
+           <span class="shield-box">
+               <img src="shield-${getShieldCat(q)}.png" style="width:100%;height:auto">
+               ${total ? `<span class="pct-badge">${pct}%</span>` : ''}
+           </span>
+           <span>${q.title}</span>
+        </div>
+        <div style="display:flex;gap:.4rem">
+           ${actBtn}
+           <button class="edit-btn">Edit</button>
+        </div>`;
+
+    /* attach the arrow click *after* HTML is in the DOM */
+    div.querySelector('.twisty')?.addEventListener('click', e => {
+        e.stopPropagation();
+        q._open = !q._open;
+
+        /* ★ store all currently-open ids */
+        const openIds = quests.filter(x => x._open).map(x => x.id);
+        localStorage.setItem('openQuests', JSON.stringify(openIds));
+
+        renderList(document.querySelector('#tabs .tab.active').dataset.cat);
     });
 
-    const active = shown.filter(q => q.category!=='done');
-    const fins   = shown.filter(q => q.category==='done');
 
-    /* ---------- helper for every row ---------- */
-    const makeRow = (q)=>{                         // (idx no longer needed here)
-        const off = q.active===false;
-        const div = document.createElement('div');
-        div.className = 'item'+(off?' inactive':'')+(q.category==='done'?' done':'');
-        div.dataset.idx = quests.indexOf(q);       // store real index
-        /*  button row: if quest is “done” we omit the Activate/Deactivate button  */
-        const actBtn = q.category==='done' ? '' :
-             `<button class="act-btn ${off?'inactive':''}">
-                 ${off?'Activate':'Deactivate'}
-              </button>`;
+    /* full row is draggable */
+    div.draggable = true;
+    return [div, kids, open];
+}
+function clearDropHints(){                       // remove old blue lines
+    document.querySelectorAll('.drop-hint').forEach(e=>e.classList.remove('drop-hint'));
+}
 
-        div.innerHTML = `
-          <div style="display:flex;align-items:center;gap:1.5rem">
-             <img src="shield-${off&&q.prevCat?q.prevCat:q.category}.png">
-             <span>${q.title}</span>
-          </div>
-          <div style="display:flex;gap:.4rem">
-             ${actBtn}
-             <button class="edit-btn">Edit</button>
-          </div>`;
-        return div;
+
+
+function renderList(cat){
+    list.innerHTML = '';
+
+    const roots = quests
+        .sort((a,b)=>order.indexOf(a.id)-order.indexOf(b.id));
+    const catItems = c => roots.filter(q=>q.category===c && !q.parent);
+
+    const buckets = {
+        main : catItems('main'),
+        side : catItems('side'),
+        task : catItems('task'),
+        done : roots.filter(q=>q.category==='done' && !q.parent),
     };
 
-    /* ---------- build the list ---------- */
-    if(cat==='done'){                              // DONE TAB = only finished
-        fins.forEach(q=>list.appendChild(makeRow(q)));
-    }else{
-        active.forEach(q=>list.appendChild(makeRow(q)));
-        if(fins.length){                           // separator + finished
-            list.appendChild(Object.assign(document.createElement('div'),
-                                           {className:'rule'}));
-            fins.forEach(q=>list.appendChild(makeRow(q)));
-        }
+
+    const showBucket = name => {
+        if(!buckets[name].length) return;
+        /* heading line */
+        const h = Object.assign(document.createElement('div'),
+                   {className:'heading',textContent:
+                    (name==='done'?'Finished':name.charAt(0).toUpperCase()+name.slice(1))+' quests'});
+        list.appendChild(h);
+        buckets[name].forEach(q=>appendRow(q,0));
+    };
+    if(cat === 'done'){
+        quests
+          .filter(q => !q.parent && q.category === 'done')   // only real roots
+          .sort((a,b) => order.indexOf(a.id) - order.indexOf(b.id))
+          .forEach(q => appendRow(q,0));
+
+        counter.textContent = `${quests.filter(q=>q.category==='done').length}
+                               /${quests.length} quests finished`;
+        return;                        // ← nothing else to do
     }
 
-    /* update counter every time list redraws */
-    document.getElementById('counter')
-            .textContent = `${quests.filter(q=>q.category==='done').length}
-                           /${quests.length} quests finished`;
-  }
+    if(cat==='all'){
+        showBucket('main'); showBucket('side'); showBucket('task'); showBucket('done');
+    }else{
+        // roots.filter(q=>isRoot(q,cat)).forEach(q=>appendRow(q,0));
+   /* no duplicates – keep ONLY real roots (no parent) */
+   const active   = roots.filter(q =>
+                      !q.parent && q.category===cat && q.category!=='done');
+   const finished = roots.filter(q =>
+                      !q.parent && q.category==='done' && q.prevCat===cat);
+
+    active.forEach(q => appendRow(q,0));
+
+    if(finished.length){                       // ← add a separator
+        list.appendChild(Object.assign(
+            document.createElement('div'),
+            {className:'rule'}
+        ));
+        finished.forEach(q => appendRow(q,0));
+       }
+
+    }
+    counter.textContent = `${buckets.done.length} / ${quests.length} quests finished`;
+}
 
 
 
-  tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;tabs.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));b.classList.add('active');renderList(b.dataset.cat)});
+        function appendRow(q, indent){
+            const [row, kids, open] = makeRow(q, indent);
+            list.appendChild(row);
+            if(open) kids.forEach(k => appendRow(k, indent+1));
+        }
+
+
+
+
+
+tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;tabs.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));b.classList.add('active');renderList(b.dataset.cat)});
 
 list.addEventListener('click', e=>{
     const row  = e.target.closest('.item');
@@ -526,6 +442,7 @@ list.addEventListener('click', e=>{
             return;
         }
         q.active = !q.active;
+        delete q.prevCat;     // ← add this line
         saveQuest(q);
         refreshAll();
         if(logPane.dataset.idx == idx) openDrawer(idx);     // keep drawer fresh
@@ -577,7 +494,7 @@ function openDrawer(i){
     </form>
     <div class="rule"></div>
     <h4 style="margin-top:.6rem">Notes</h4>
-    <div id="notes-box">${q.notes || '<em>no notes yet</em>'}</div>
+    <div id="notes-box">${q.notes || '<em>No notes yet</em>'}</div>
     <button class="note-btn edit-btn gold-btn"
             style="opacity:1;visibility:visible;margin-top:.4rem">
        ✎ Edit Notes
@@ -599,7 +516,7 @@ logPane.addEventListener('click', e => {
     const idx   = +logPane.dataset.idx;
     const quest = quests[idx];
 
-    saveQuest(quest);        // probably not needed any more
+    // saveQuest(quest);        // probably not needed any more
     // refreshAll();
     // openDrawer(idx);
 });
@@ -634,7 +551,7 @@ logPane.addEventListener('dragover', e=>{
     if(!e.target.closest('.task-row')) return;
     e.preventDefault();                         // allow drop
 });
-
+logPane.addEventListener('dragend', ()=> dragFrom=null);
 logPane.addEventListener('drop', e=>{
     const toRow = e.target.closest('.task-row');
     if(!toRow) return;
@@ -712,6 +629,66 @@ function openNotes(idx){
     box.querySelector('#n-close').onclick = close;
     mask.onclick = close;
 }
+/* ---------- helpers ------------------------------------------------- */
+function getChildren(q){
+    return quests.filter(c => c.parent === q.id);
+}
+function isRoot(q, cat){                // belongs to current tab & has no parent
+    if (q.parent) return false;
+    if (cat==='all')  return true;
+    if (cat==='done') return q.category==='done';
+    return q.category===cat || (q.category==='done' && q.prevCat===cat);
+}
+function getShieldCat(q){
+    return q.category==='done' ? (q.prevCat || 'side') : q.category;
+}
+
+let dragQuest = null;
+
+list.addEventListener('dragstart', e => {
+    const row = e.target.closest('.item');
+    if (!row) return;
+    row.classList.add('dragging');
+
+    dragQuest = quests[+row.dataset.idx].id;
+    e.dataTransfer.effectAllowed = 'move';
+});
+list.addEventListener('dragend', e => {
+    const row = e.target.closest('.item');
+    if (row) row.classList.remove('dragging');
+    dragQuest = null;
+        clearDropHints();   // make sure blue line vanishes
+
+});
+
+list.addEventListener('dragover', e=>{
+    const row = e.target.closest('.item');
+    if(!row) return;
+
+    e.preventDefault();            // accept drop
+    clearDropHints();
+    row.classList.add('drop-hint');     // blue bar just above
+    
+});
+
+list.addEventListener('drop', e => {
+    const tgt = e.target.closest('.item');
+    if (!tgt || !dragQuest) return;
+    clearDropHints();   // <--- add this
+
+    const targetId = quests[+tgt.dataset.idx].id;
+    if (targetId === dragQuest) return;
+
+    /* 1. move the id inside `order` */
+    order.splice(order.indexOf(dragQuest), 1);
+    order.splice(order.indexOf(targetId), 0, dragQuest);
+
+localStorage.setItem('questOrder', JSON.stringify(order));   // ★ save
+quests.sort((a,b)=>order.indexOf(a.id)-order.indexOf(b.id));
+
+    dragQuest = null;
+    refreshAll();               // redraw everything
+});
 
 
   /* ------------------------------------------------------------------ */
@@ -764,7 +741,18 @@ function openNotes(idx){
           <option value="task" ${q.category==='task'?'selected':''}>Task</option>
           <option value="done" ${q.category==='done'?'selected':''}>Done</option>
         </select>
-      </label>
+<label>Parent Quest
+  <select id="e-parent">
+     <option value="">— none —</option>
+     ${quests
+        .filter(pp => pp.id !== q.id)      /* can’t parent to itself   */
+        .map(pp => `<option value="${pp.id}"
+                            ${q.parent===pp.id?'selected':''}>
+                        ${pp.title}
+                    </option>`)
+        .join('')}
+  </select>
+</label>
 
       <div style="text-align:center;margin-top:1.1rem">
         <button id="e-save">Save</button>
@@ -789,9 +777,34 @@ function openNotes(idx){
                        text:r.querySelector('input[type="text"]').value.trim(),
                        done:r.querySelector('input[type="checkbox"]').checked
                      })).filter(t=>t.text);
-      q.category   = document.getElementById('e-cat').value;
-      q.active     = q.category!=='done';
+     q.category = document.getElementById('e-cat').value;
+
+     /* keep whatever “active” status the quest already had
+        – except when the user explicitly sets it to Done */
+     if (q.category === 'done'){
+         q.active = false;
+     }
+const newParent = document.getElementById('e-parent').value || null;
+const oldParent = q.parent || null;
+
+/* 1. remove the id from every children[] list everywhere */
+quests.forEach(p=>{
+  if (Array.isArray(p.children))
+      p.children = p.children.filter(cid => cid !== q.id);
+});
+
+/* attach to new parent (if any) */
+if (newParent){
+    const par = quests.find(p=>p.id === newParent);
+    par.children = par.children || [];
+    par.children.push(q.id);
+}
+q.parent = newParent;          // ← will be null (not missing) when “none”
+
+
       saveQuest(q);
+      localStorage.setItem('questOrder', JSON.stringify(order));   // keep order
+
       refreshAll();          // <-- ADD THIS
       openDrawer(i);         // keep drawer in sync if it’s open
       closeModal();
@@ -829,6 +842,10 @@ function openNotes(idx){
 
       // 2) tell the server (optional – comment out if you don’t have the route)
       fetch(`/api/quests/${q.id}`,{ method:'DELETE' });
+        quests.forEach(p=>{
+            if(Array.isArray(p.children))
+                p.children = p.children.filter(cid => cid !== q.id);
+        });
 
       // 3) refresh UI
       closeModal();
@@ -839,8 +856,7 @@ function openNotes(idx){
   };
 
   }
+    </script>
+</body>
 
-
-  </script>
-  </body>
-  </html>
+</html>
