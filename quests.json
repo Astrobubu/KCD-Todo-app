@@ -1,711 +1,624 @@
-[
-  {
-    "id": "last-rites",
-    "title": "Of Plush and Protocols [Dropped indefinitely]",
-    "category": "done",
-    "status": "active",
-    "objective": "Design a soft bodied android, a childhood echo coded with comfort and cognition",
-    "description": "",
-    "subtasks": [
-      {
-        "text": "Get the doll from Bazeyad",
-        "done": true
-      },
-      {
-        "text": "Copy the code to pc",
-        "done": true
-      },
-      {
-        "text": "Install the packages",
-        "done": true
-      },
-      {
-        "text": "Integrate the code on to the new raspberry",
-        "done": true
-      },
-      {
-        "text": "Reinstall Raspbian 64bit",
-        "done": true
-      },
-      {
-        "text": "Fix da errors I",
-        "done": true
-      },
-      {
-        "text": "Fix da errors II",
-        "done": true
-      },
-      {
-        "text": "Make a startup code",
-        "done": true
-      },
-      {
-        "text": "Wait for order",
-        "done": true
-      },
-      {
-        "text": "Update the code for the doll",
-        "done": false
-      }
-    ],
-    "active": false,
-    "prevCat": "main",
-    "notes": "I've finally managed to integrate the ingrate of a code into the raspberry thingamajig. \n\nI've had a small conversation with this artificial intelligence and it seems that it has the intelligence of a gold fish, it cant remember a single thing the moment i open my mouth. how odd.\n\n.",
-    "_open": false,
-    "parent": null
+{
+  "settings": {
+    "theme": "default",
+    "openaiKey": ""
   },
-  {
-    "id": "food-run",
-    "title": "Sturdy up the Frame",
-    "category": "done",
-    "status": "inactive",
-    "objective": "Fix the wobbly tripod",
-    "description": "",
-    "subtasks": [
-      {
-        "done": true,
-        "text": "Grab it and bring it downstairs"
-      },
-      {
-        "done": true,
-        "text": "Make da holes"
-      },
-      {
-        "done": true,
-        "text": "Tap it"
-      },
-      {
-        "done": true,
-        "text": "Screw it"
-      }
-    ],
-    "active": false,
-    "prevCat": "task",
-    "parent": "1745621719534",
-    "_open": false
-  },
-  {
-    "id": "find-johnny",
-    "title": "Restore the Scope and Initiate the training!",
-    "category": "side",
-    "status": "inactive",
-    "objective": "Fix the telescope order",
-    "description": "",
-    "subtasks": [
-      {
-        "done": true,
-        "text": "Rubber on the edges"
-      },
-      {
-        "done": true,
-        "text": "Battery gunk"
-      },
-      {
-        "done": true,
-        "text": "Collimation"
-      },
-      {
-        "done": true,
-        "text": "Train the family"
-      },
-      {
-        "done": false,
-        "text": "Repay the company the amount of 650AED"
-      },
-      {
-        "done": true,
-        "text": "Fix the Finder"
-      },
-      {
-        "done": true,
-        "text": "Give the finder back to the family"
-      }
-    ],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "_open": false
-  },
-  {
-    "id": "food-run2",
-    "title": "The Awakening of Inmoov",
-    "category": "side",
-    "status": "inactive",
-    "objective": "Assemble the mechanical soul, piece by piece, and bring the humanoid sentinel to life",
-    "description": "",
-    "subtasks": [
-      {
-        "done": false,
-        "text": "Assemble the Eye"
-      },
-      {
-        "done": true,
-        "text": "Buy inmoov pcb"
-      },
-      {
-        "text": "Find and Order Inmoov PCb",
-        "done": false
-      }
-    ],
-    "active": false,
-    "prevCat": "side",
-    "_open": false,
-    "parent": null
-  },
-  {
-    "id": "1745602673866",
-    "title": "The Coolborn Enterprise",
-    "category": "side",
-    "objective": "Embark on venture of trading cooling magic imbued clothing",
-    "description": "test",
-    "subtasks": [
-      {
-        "done": true,
-        "text": "Check the pricing for the last one i requested"
-      },
-      {
-        "done": false,
-        "text": "Invest 1000AED into this"
-      }
-    ],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "children": [],
-    "_open": true,
-    "parent": null
-  },
-  {
-    "id": "1745616105560",
-    "title": "Clearing the Mist",
-    "category": "main",
-    "objective": "",
-    "description": "Conjure a device banish fog and bring clarity to the veiled unknown",
-    "subtasks": [
-      {
-        "done": true,
-        "text": "Make a basic prototype"
-      },
-      {
-        "done": false,
-        "text": "Make a new PCB with less close parts"
-      },
-      {
-        "done": false,
-        "text": "Pour in apoxy"
-      },
-      {
-        "done": true,
-        "text": "Purchase a mesh ( OCTAGON CANE PATTERN )"
-      },
-      {
-        "done": false,
-        "text": "Design an enclosure with wire and ground holders"
-      },
-      {
-        "done": false,
-        "text": "Print the enclosure"
-      },
-      {
-        "done": true,
-        "text": "find the mesh"
-      },
-      {
-        "done": true,
-        "text": "Purchase thin wire"
-      }
-    ],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "parent": null,
-    "_open": false
-  },
-  {
-    "id": "1745621719534",
-    "title": "Maintaining the Night Observers I",
-    "category": "task",
-    "objective": "Fix and maintain telescopes",
-    "description": "",
-    "subtasks": [
-      {
-        "done": false,
-        "text": "Remove the screw from inside the CPC"
-      },
-      {
-        "done": false,
-        "text": "Fix the spring for the finders and lubricate them"
-      },
-      {
-        "text": "Buy New Screws",
-        "done": false
-      }
-    ],
-    "active": false,
-    "prevCat": "task",
-    "notes": "",
-    "_open": true
-  },
-  {
-    "id": "1745671501280",
-    "title": "A Quote for the Sky Master",
-    "category": "side",
-    "objective": "Fix up the quote for Sky Master Wardat",
-    "description": "",
-    "subtasks": [
-      {
-        "done": false,
-        "text": "Talk to sheeraz"
-      },
-      {
-        "done": false,
-        "text": "Adjust the quote for this"
-      }
-    ],
-    "active": true,
-    "prevCat": "side",
-    "notes": "",
-    "_open": false
-  },
-  {
-    "id": "1745671624302",
-    "title": "The Bloody Crescent Automaton Pt. 1",
-    "category": "done",
-    "objective": "Prepare and present Merhab to the Red Crescent and lay the ground work for profit",
-    "description": "",
-    "subtasks": [
-      {
-        "text": "Prepare Presentation",
-        "done": true
-      },
-      {
-        "text": "Follow up with Eisa",
-        "done": true
-      },
-      {
-        "text": "Follow up with Eisa",
-        "done": true
-      },
-      {
-        "text": "Reply to Eisa",
-        "done": true
-      },
-      {
-        "text": "Go to Abudhabi with the robot on Monday",
-        "done": true
-      },
-      {
-        "text": "Wait for their response with details",
-        "done": true
-      },
-      {
-        "text": "Create two quotes with the given specs",
-        "done": true
-      },
-      {
-        "text": "Follow UP",
-        "done": true
-      },
-      {
-        "text": "Follow UP",
-        "done": true
-      }
-    ],
-    "active": false,
-    "prevCat": "main",
-    "notes": "",
-    "_open": false,
-    "parent": null
-  },
-  {
-    "id": "1745672022549",
-    "title": "Assist in the scribe's labour",
-    "category": "done",
-    "objective": "Liberate Wagdy from the manual toil craft using the Access system to make the mundane magical",
-    "description": "",
-    "subtasks": [
-      {
-        "done": true,
-        "text": "Follow up with wagdy"
-      }
-    ],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "children": [
-      "1745672252646"
-    ],
-    "_open": false
-  },
-  {
-    "id": "1745672116415",
-    "title": "Voice of Remembrance",
-    "category": "side",
-    "objective": "Channel device circuits to craft a zikr device that echoes the sacred rhythms",
-    "description": "",
-    "subtasks": [
-      {
-        "done": true,
-        "text": "Assemble the hardware"
-      },
-      {
-        "done": false,
-        "text": "Upload a functioning code"
-      }
-    ],
-    "active": true,
-    "prevCat": "side",
-    "notes": "",
-    "_open": false,
-    "parent": null
-  },
-  {
-    "id": "1745672252646",
-    "title": "The Awir Holdings",
-    "category": "main",
-    "objective": "Work on the new house",
-    "description": "test",
-    "subtasks": [
-      {
-        "text": "Follow up with Ali on latest updates",
-        "done": false
-      },
-      {
-        "text": "Begin the shifting process",
-        "done": false
-      },
-      {
-        "text": "Store what we can put into the cabins",
-        "done": false
-      }
-    ],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "parent": "null"
-  },
-  {
-    "id": "1745948138807",
-    "title": "Dome Purchase Request",
-    "category": "side",
-    "objective": "Contact with Kevin and get this done",
-    "description": "",
-    "subtasks": [
-      {
-        "done": true,
-        "text": "Create a 3d visualization for the dome"
-      },
-      {
-        "done": true,
-        "text": "Contact Kevin"
-      },
-      {
-        "done": false,
-        "text": "Adjust as neccesary"
-      },
-      {
-        "done": false,
-        "text": "Adjust the design again with the input and mention the discount"
-      }
-    ],
-    "active": true,
-    "prevCat": "side",
-    "notes": "",
-    "_open": true
-  },
-  {
-    "id": "1746017555944",
-    "title": "Take Mahmood to his broken car",
-    "category": "done",
-    "objective": "He broke his car, so he needed someone to drop him to the car so the truck-kun can take it to the garage",
-    "description": "",
-    "subtasks": [],
-    "active": false,
-    "prevCat": "task",
-    "notes": ""
-  },
-  {
-    "id": "1746295988528",
-    "title": "Light for the books",
-    "category": "side",
-    "objective": "Build a light for QQ attendees",
-    "description": "",
-    "subtasks": [
-      {
-        "done": false,
-        "text": "Connect the battery and USB C charger"
-      },
-      {
-        "done": true,
-        "text": "Build a functioning prototype"
-      },
-      {
-        "done": false,
-        "text": "Design around the battery"
-      },
-      {
-        "done": false,
-        "text": "Finalize the design with wire holes"
-      },
-      {
-        "done": true,
-        "text": "Purchase Charger"
-      }
-    ],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "parent": null,
-    "_open": false
-  },
-  {
-    "id": "1746296203073",
-    "title": "A Vending Machine for Every Place [Dropped]",
-    "category": "done",
-    "objective": "Start the machine business",
-    "description": "",
-    "subtasks": [
-      {
-        "text": "Follow up with Jude",
-        "done": false
-      },
-      {
-        "text": "Follow up with Eli",
-        "done": false
-      },
-      {
-        "text": "Follow up with Sreejith",
-        "done": true
-      },
-      {
-        "text": "Follow up with Hamza",
-        "done": false
-      },
-      {
-        "text": "Follow up with Wahab and Tamer",
-        "done": false
-      },
-      {
-        "text": "Follow up with Azeem",
-        "done": false
-      }
-    ],
-    "active": false,
-    "prevCat": "main",
-    "notes": "Jude is going to contact her building management\n\nEli is giving advice and doesnt know anyone\n\nWahab said he will ask the UOS",
-    "parent": null,
-    "_open": false
-  },
-  {
-    "id": "1746523485269",
-    "title": "Edit and send the images to khadija",
-    "category": "done",
-    "objective": "",
-    "description": "Send her images",
-    "subtasks": [],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "parent": null
-  },
-  {
-    "id": "1746534717548",
-    "title": "Edit images from the Qua'a Trip",
-    "category": "done",
-    "objective": "",
-    "description": "",
-    "subtasks": [],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "parent": null
-  },
-  {
-    "id": "1746671203412",
-    "title": "Design a CMF Phone Case",
-    "category": "task",
-    "objective": "Just Do It!",
-    "description": "",
-    "subtasks": [
-      {
-        "done": false,
-        "text": "Update the new Design"
-      },
-      {
-        "done": true,
-        "text": "print the design"
-      }
-    ],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "parent": null,
-    "_open": false
-  },
-  {
-    "id": "1747019992572",
-    "title": "Fix the British School Meade",
-    "category": "done",
-    "objective": "",
-    "description": "",
-    "subtasks": [
-      {
-        "done": true,
-        "text": "Identify the problems"
-      },
-      {
-        "done": true,
-        "text": "Fix the problems"
-      },
-      {
-        "done": true,
-        "text": "Lubricate the AZ axis"
-      }
-    ],
-    "active": false,
-    "prevCat": "task",
-    "notes": "",
-    "parent": null,
-    "_open": false
-  },
-  {
-    "id": "1748074396008",
-    "title": "AI workshops with Saad",
-    "category": "task",
-    "objective": "Meet with him and discuss future AI plans",
-    "description": "",
-    "subtasks": [
-      {
-        "done": true,
-        "text": "List out AI Capabilities"
-      },
-      {
-        "done": true,
-        "text": "List out chatgpt tricks"
-      },
-      {
-        "done": false,
-        "text": "Refine the Email Agent"
-      },
-      {
-        "done": false,
-        "text": "Make a basic document editing agent"
-      },
-      {
-        "done": false,
-        "text": "make an agent for making report/invoices"
-      },
-      {
-        "done": true,
-        "text": "make an agent to take images of receipts and add it to a sheets file"
-      },
-      {
-        "done": false,
-        "text": "Compile a rough presentation"
-      }
-    ],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "parent": null,
-    "_open": false
-  },
-  {
-    "id": "1748084767681",
-    "title": "Merhaab Presentation",
-    "category": "done",
-    "objective": "Showcase it in a youth crunch",
-    "description": "",
-    "subtasks": [
-      {
-        "done": true,
-        "text": "Send afsha the deets"
-      },
-      {
-        "done": true,
-        "text": "Go to the showcase"
-      }
-    ],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "parent": null,
-    "_open": false
-  },
-  {
-    "id": "1749040106334",
-    "title": "Merhaab Robot Advertisement",
-    "category": "done",
-    "objective": "Make a new set of brochures and documents for this robot",
-    "description": "",
-    "subtasks": [],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "_open": true,
-    "parent": null
-  },
-  {
-    "id": "1749040179301",
-    "title": "Get a whole set of new screws!",
-    "category": "task",
-    "objective": "Find each type and get it!",
-    "description": "",
-    "subtasks": [],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "parent": "1745621719534"
-  },
-  {
-    "id": "1749040282271",
-    "title": "Send details to these people",
-    "category": "done",
-    "objective": "",
-    "description": "",
-    "subtasks": [],
-    "active": false,
-    "prevCat": "task",
-    "notes": "",
-    "parent": "1749040106334",
-    "_open": false
-  },
-  {
-    "id": "1749726786950",
-    "title": "The Guidon Project",
-    "category": "main",
-    "objective": "Start taking the initial steps to establish a new company",
-    "description": "",
-    "subtasks": [
-      {
-        "done": true,
-        "text": "Upload the automaton to the web domain."
-      },
-      {
-        "done": false,
-        "text": "Schedule a Meeting with Rashed"
-      },
-      {
-        "done": false,
-        "text": "Tell Saad about the project"
-      }
-    ],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "parent": null,
-    "_open": false
-  },
-  {
-    "id": "1753442581924",
-    "title": "The Bloody Crescent Automaton Pt. 2",
-    "category": "main",
-    "objective": "Get funded for the Guideon Robot",
-    "description": "",
-    "subtasks": [],
-    "active": false,
-    "prevCat": "side",
-    "notes": "",
-    "parent": null
-  }
-]
+  "quests": [
+    {
+      "id": "last-rites",
+      "title": "Of Plush and Protocols",
+      "category": "main",
+      "status": "active",
+      "objective": "Design a soft bodied android, a childhood echo coded with comfort and cognition",
+      "description": "",
+      "subtasks": [
+        {
+          "done": true,
+          "text": "Get the doll from Bazeyad"
+        },
+        {
+          "done": true,
+          "text": "Copy the code to pc"
+        },
+        {
+          "done": true,
+          "text": "Install the packages"
+        },
+        {
+          "done": true,
+          "text": "Integrate the code on to the new raspberry"
+        },
+        {
+          "done": true,
+          "text": "Reinstall Raspbian 64bit"
+        },
+        {
+          "done": true,
+          "text": "Fix da errors I"
+        },
+        {
+          "done": true,
+          "text": "Fix da errors II"
+        },
+        {
+          "done": true,
+          "text": "Make a startup code"
+        },
+        {
+          "done": false,
+          "text": "Discuss with the team on the steps forward and issues"
+        },
+        {
+          "done": true,
+          "text": "Look up alternatives for blutooth speaker open"
+        },
+        {
+          "done": false,
+          "text": "Wait for order"
+        }
+      ],
+      "active": false,
+      "prevCat": "main",
+      "notes": "I've finally managed to integrate the ingrate of a code into the raspberry thingamajig. \n\nI've had a small conversation with this artificial intelligence and it seems that it has the intelligence of a gold fish, it cant remember a single thing the moment i open my mouth. how odd.\n\n.",
+      "_open": true,
+      "parent": null
+    },
+    {
+      "id": "food-run",
+      "title": "Sturdy up the Frame",
+      "category": "done",
+      "status": "inactive",
+      "objective": "Fix the wobbly tripod",
+      "description": "",
+      "subtasks": [
+        {
+          "done": true,
+          "text": "Grab it and bring it downstairs"
+        },
+        {
+          "done": true,
+          "text": "Make da holes"
+        },
+        {
+          "done": true,
+          "text": "Tap it"
+        },
+        {
+          "done": true,
+          "text": "Screw it"
+        }
+      ],
+      "active": false,
+      "prevCat": "task",
+      "parent": "1745621719534",
+      "_open": false
+    },
+    {
+      "id": "find-johnny",
+      "title": "Restore the Scope and Initiate the training!",
+      "category": "side",
+      "status": "inactive",
+      "objective": "Fix the telescope order",
+      "description": "",
+      "subtasks": [
+        {
+          "done": true,
+          "text": "Rubber on the edges"
+        },
+        {
+          "done": true,
+          "text": "Battery gunk"
+        },
+        {
+          "done": true,
+          "text": "Collimation"
+        },
+        {
+          "done": true,
+          "text": "Train the family"
+        },
+        {
+          "done": false,
+          "text": "Repay the company the amount of 650AED"
+        },
+        {
+          "done": true,
+          "text": "Fix the Finder"
+        },
+        {
+          "text": "Give the finder back to the family",
+          "done": false
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "_open": false
+    },
+    {
+      "id": "food-run2",
+      "title": "The Awakening of Inmoov",
+      "category": "side",
+      "status": "inactive",
+      "objective": "Assemble the mechanical soul, piece by piece, and bring the humanoid sentinel to life",
+      "description": "",
+      "subtasks": [
+        {
+          "done": false,
+          "text": "Assemble the Eye"
+        },
+        {
+          "done": true,
+          "text": "Buy inmoov pcb"
+        },
+        {
+          "done": false,
+          "text": "Find and Order Inmoov PCb"
+        },
+        {
+          "done": false,
+          "text": "Fix the broken Pieces"
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "_open": false,
+      "parent": null
+    },
+    {
+      "id": "1745602673866",
+      "title": "The Coolborn Enterprise",
+      "category": "side",
+      "objective": "Embark on venture of trading cooling magic imbued clothing",
+      "description": "test",
+      "subtasks": [
+        {
+          "done": true,
+          "text": "Check the pricing for the last one i requested"
+        },
+        {
+          "done": false,
+          "text": "Invest 1000AED into this"
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "children": [],
+      "_open": true,
+      "parent": null
+    },
+    {
+      "id": "1745616105560",
+      "title": "Clearing the Mist",
+      "category": "main",
+      "objective": "",
+      "description": "Conjure a device banish fog and bring clarity to the veiled unknown",
+      "subtasks": [
+        {
+          "done": true,
+          "text": "Make a basic prototype"
+        },
+        {
+          "done": false,
+          "text": "Make a new PCB with less close parts"
+        },
+        {
+          "done": false,
+          "text": "Pour in apoxy"
+        },
+        {
+          "done": true,
+          "text": "Purchase a mesh ( OCTAGON CANE PATTERN )"
+        },
+        {
+          "done": false,
+          "text": "Design an enclosure with wire and ground holders"
+        },
+        {
+          "done": false,
+          "text": "Print the enclosure"
+        },
+        {
+          "done": true,
+          "text": "find the mesh"
+        },
+        {
+          "done": true,
+          "text": "Purchase thin wire"
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "parent": null,
+      "_open": false
+    },
+    {
+      "id": "1745621719534",
+      "title": "Maintaining the Night Observers I",
+      "category": "task",
+      "objective": "Fix and maintain telescopes",
+      "description": "",
+      "subtasks": [
+        {
+          "done": false,
+          "text": "Remove the screw from inside the CPC"
+        },
+        {
+          "done": false,
+          "text": "Fix the spring for the finders and lubricate them"
+        },
+        {
+          "text": "Buy New Screws",
+          "done": false
+        }
+      ],
+      "active": false,
+      "prevCat": "task",
+      "notes": "",
+      "_open": true
+    },
+    {
+      "id": "1745671501280",
+      "title": "A Quote for the Sky Master",
+      "category": "side",
+      "objective": "Fix up the quote for Sky Master Wardat",
+      "description": "",
+      "subtasks": [
+        {
+          "done": false,
+          "text": "Talk to sheeraz"
+        },
+        {
+          "done": false,
+          "text": "Adjust the quote for this"
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "_open": false
+    },
+    {
+      "id": "1745671624302",
+      "title": "The Bloody Crescent Automaton",
+      "category": "main",
+      "objective": "Prepare and present Merhab to the Red Crescent and lay the ground work for profit",
+      "description": "",
+      "subtasks": [
+        {
+          "done": true,
+          "text": "Prepare Presentation"
+        },
+        {
+          "done": true,
+          "text": "Follow up with Eisa"
+        },
+        {
+          "done": true,
+          "text": "Follow up with Eisa"
+        },
+        {
+          "done": true,
+          "text": "Reply to Eisa"
+        },
+        {
+          "done": true,
+          "text": "Go to Abudhabi with the robot on Monday"
+        },
+        {
+          "done": true,
+          "text": "Wait for their response with details"
+        },
+        {
+          "done": true,
+          "text": "Create two quotes with the given specs"
+        },
+        {
+          "done": false,
+          "text": "Follow UP"
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "_open": false
+    },
+    {
+      "id": "1745672022549",
+      "title": "Assist in the scribe's labour",
+      "category": "done",
+      "objective": "Liberate Wagdy from the manual toil craft using the Access system to make the mundane magical",
+      "description": "",
+      "subtasks": [
+        {
+          "done": true,
+          "text": "Follow up with wagdy"
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "children": [
+        "1745672252646"
+      ],
+      "_open": false
+    },
+    {
+      "id": "1745672116415",
+      "title": "Voice of Remembrance",
+      "category": "side",
+      "objective": "Channel device circuits to craft a zikr device that echoes the sacred rhythms",
+      "description": "",
+      "subtasks": [
+        {
+          "done": true,
+          "text": "Assemble the hardware"
+        },
+        {
+          "done": false,
+          "text": "Upload a functioning code"
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "_open": false,
+      "parent": null
+    },
+    {
+      "id": "1745672252646",
+      "title": "The Awir Holdings",
+      "category": "main",
+      "objective": "Work on the new house",
+      "description": "test",
+      "subtasks": [
+        {
+          "text": "Follow up with Ali on latest updates",
+          "done": false
+        },
+        {
+          "text": "Begin the shifting process",
+          "done": false
+        },
+        {
+          "text": "Store what we can put into the cabins",
+          "done": false
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "parent": "null"
+    },
+    {
+      "id": "1745948138807",
+      "title": "Dome Purchase Request",
+      "category": "side",
+      "objective": "Contact with Kevin and get this done",
+      "description": "",
+      "subtasks": [
+        {
+          "done": true,
+          "text": "Create a 3d visualization for the dome"
+        },
+        {
+          "done": true,
+          "text": "Contact Kevin"
+        },
+        {
+          "done": false,
+          "text": "Adjust as neccesary"
+        },
+        {
+          "done": false,
+          "text": "Adjust the design again with the input and mention the discount"
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "_open": true
+    },
+    {
+      "id": "1746017555944",
+      "title": "Take Mahmood to his broken car",
+      "category": "done",
+      "objective": "He broke his car, so he needed someone to drop him to the car so the truck-kun can take it to the garage",
+      "description": "",
+      "subtasks": [],
+      "active": false,
+      "prevCat": "task",
+      "notes": ""
+    },
+    {
+      "id": "1746295988528",
+      "title": "Light for the books",
+      "category": "side",
+      "objective": "Build a light for QQ attendees",
+      "description": "",
+      "subtasks": [
+        {
+          "done": false,
+          "text": "Connect the battery and USB C charger"
+        },
+        {
+          "done": true,
+          "text": "Build a functioning prototype"
+        },
+        {
+          "done": false,
+          "text": "Design around the battery"
+        },
+        {
+          "done": false,
+          "text": "Finalize the design with wire holes"
+        },
+        {
+          "done": true,
+          "text": "Purchase Charger"
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "parent": null,
+      "_open": false
+    },
+    {
+      "id": "1746296203073",
+      "title": "A Vending Machine for Every Place",
+      "category": "main",
+      "objective": "Start the machine business",
+      "description": "",
+      "subtasks": [
+        {
+          "done": false,
+          "text": "Follow up with Jude"
+        },
+        {
+          "done": false,
+          "text": "Follow up with Eli"
+        },
+        {
+          "done": true,
+          "text": "Follow up with Sreejith"
+        },
+        {
+          "done": false,
+          "text": "Follow up with Hamza"
+        },
+        {
+          "done": false,
+          "text": "Follow up with Wahab and Tamer"
+        },
+        {
+          "done": false,
+          "text": "Follow up with Azeem"
+        }
+      ],
+      "active": true,
+      "prevCat": "side",
+      "notes": "Jude is going to contact her building management\n\nEli is giving advice and doesnt know anyone\n\nWahab said he will ask the UOS",
+      "parent": null,
+      "_open": false
+    },
+    {
+      "id": "1746523485269",
+      "title": "Edit and send the images to khadija",
+      "category": "done",
+      "objective": "",
+      "description": "Send her images",
+      "subtasks": [],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "parent": null
+    },
+    {
+      "id": "1746534717548",
+      "title": "Edit images from the Qua'a Trip",
+      "category": "done",
+      "objective": "",
+      "description": "",
+      "subtasks": [],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "parent": null
+    },
+    {
+      "id": "1746671203412",
+      "title": "Design a CMF Phone Case",
+      "category": "task",
+      "objective": "Just Do It!",
+      "description": "",
+      "subtasks": [
+        {
+          "done": false,
+          "text": "Update the new Design"
+        },
+        {
+          "text": "print the design",
+          "done": true
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "parent": null,
+      "_open": false
+    },
+    {
+      "id": "1747019992572",
+      "title": "Fix the British School Meade",
+      "category": "task",
+      "objective": "",
+      "description": "",
+      "subtasks": [
+        {
+          "done": true,
+          "text": "Identify the problems"
+        },
+        {
+          "done": false,
+          "text": "Fix the problems"
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "parent": null,
+      "_open": false
+    },
+    {
+      "id": "1748074396008",
+      "title": "Meet up with Saad",
+      "category": "task",
+      "objective": "Meet with him and discuss future AI plans",
+      "description": "",
+      "subtasks": [
+        {
+          "done": false,
+          "text": "List out AI Capabilities"
+        },
+        {
+          "done": false,
+          "text": "List out chatgpt tricks"
+        },
+        {
+          "done": false,
+          "text": "Compile a rough presentation"
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "parent": null,
+      "_open": false
+    },
+    {
+      "id": "1748084767681",
+      "title": "Merhaab Presentation",
+      "category": "side",
+      "objective": "Showcase it in a youth crunch",
+      "description": "",
+      "subtasks": [
+        {
+          "done": true,
+          "text": "Send afsha the deets"
+        },
+        {
+          "done": false,
+          "text": "Go to the showcase"
+        }
+      ],
+      "active": false,
+      "prevCat": "side",
+      "notes": "",
+      "parent": null,
+      "_open": false
+    }
+  ]
+}

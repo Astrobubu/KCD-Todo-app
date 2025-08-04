@@ -66,6 +66,25 @@
 
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
+#settings-btn{
+  position:absolute; top:3.1em; right:1.3em;
+  font-size:1.4rem; line-height:1; color:#e9d0a0;
+  background:none;border:none;cursor:pointer;
+}
+#settings-btn:hover{color:#fff;text-shadow:0 0 6px #ffd86a}
+
+#settings-mask{position:fixed;inset:0;background:#0009;
+               backdrop-filter:blur(2px);display:none;z-index:99}
+#settings-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+              width:420px;max-width:95%;background:#f9f3e6;padding:1rem 1.3rem;
+              border:3px solid #916b32;border-radius:8px;display:none;
+              box-shadow:0 0 20px #0006;z-index:100}
+#settings-box h3{text-align:center;margin-top:0}
+#settings-box label{display:block;margin:.6rem 0;font-size:.9rem}
+#settings-box input,#settings-box select{
+   width:100%;padding:.25rem .4rem;border:1px solid #b49a6c;
+   border-radius:3px;background:#fffbe9;font-family:inherit;font-size:.85rem
+}
 
     </style>
 </head>
@@ -89,6 +108,11 @@
             <div id="counter"></div>
 
             <button id="add-quest-btn">Add Quest</button>
+            <button id="settings-btn" title="Settings">⚙️</button>
+            <div id="settings-mask"></div>
+            <div id="settings-box"></div>
+
+
         </div>
     </aside>
 
@@ -856,6 +880,58 @@ q.parent = newParent;          // ← will be null (not missing) when “none”
   };
 
   }
+
+  /* ------------------------------------------------------------- */
+/*  SETTINGS WINDOW                                              */
+/* ------------------------------------------------------------- */
+const sBtn   = document.getElementById('settings-btn');
+const sMask  = document.getElementById('settings-mask');
+const sBox   = document.getElementById('settings-box');
+
+sBtn.onclick = openSettings;   // ⚙️
+
+function openSettings(){
+  fetch('/api/settings').then(r=>r.json()).then(settings=>{
+      drawSettings(settings);
+      sMask.style.display = sBox.style.display = 'block';
+  });
+}
+
+function drawSettings(s){
+  sBox.innerHTML = `
+     <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3>Settings</h3>
+        <button id="e-close">X</button>
+     </div>
+
+     <label>OpenAI&nbsp;API&nbsp;Key
+       <input id="s-key" type="password" value="${s.openaiKey||''}">
+     </label>
+
+     <div style="text-align:center;margin-top:1rem">
+        <button id="s-save" class="gold-btn">Save</button>
+     </div>`;
+  // wire buttons
+  sBox.querySelector('#e-close').onclick = closeSettings;
+  sBox.querySelector('#s-save').onclick  = saveSettings;
+}
+
+function closeSettings(){
+  sMask.style.display = sBox.style.display = 'none';
+  sBox.innerHTML = '';
+}
+
+function saveSettings(){
+  const payload = {
+    openaiKey: document.getElementById('s-key').value.trim()
+  };
+  fetch('/api/settings',{
+    method:'PUT',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  }).then(()=>{ closeSettings(); });
+}
+sMask.onclick = closeSettings;
     </script>
 </body>
 
