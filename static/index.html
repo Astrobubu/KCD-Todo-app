@@ -67,11 +67,12 @@
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 #settings-btn{
-  position:absolute; top:3.1em; right:1.3em;
+  position:absolute; top:2.5em; right:1em;
   font-size:1.4rem; line-height:1; color:#e9d0a0;
   background:none;border:none;cursor:pointer;
 }
-#settings-btn:hover{color:#fff;text-shadow:0 0 6px #ffd86a}
+#settings-btn:hover{color:#fff;text-shadow:0 0 6px #ffd86a;  filter: brightness(1.2);
+}
 
 #settings-mask{position:fixed;inset:0;background:#0009;
                backdrop-filter:blur(2px);display:none;z-index:99}
@@ -108,7 +109,9 @@
             <div id="counter"></div>
 
             <button id="add-quest-btn">Add Quest</button>
-            <button id="settings-btn" title="Settings">⚙️</button>
+            <button id="settings-btn" title="Settings">
+              <img src="settings.png" alt="Settings" style="width:2em; height:2em;">
+            </button>
             <div id="settings-mask"></div>
             <div id="settings-box"></div>
 
@@ -217,15 +220,107 @@ bar.addEventListener('click', async e => {
         let order = [];          // will mirror quests.map(q=>q.id) on load
 
         function saveQuest(q) {
-            const clean = structuredClone(q); // <-- add this line
-            fetch(`/api/quests/${q.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(clean)
-            });
+            saveQuestsLocal(); // Just save everything locally
         }
+
+        function saveQuestsLocal() {
+            localStorage.setItem('questJournal_quests', JSON.stringify(quests));
+            localStorage.setItem('questJournal_order', JSON.stringify(order));
+        }
+        /* ------------------------------------------------------------------ */
+        /*  GRAB DOM ELEMENTS                                                 */
+        /* ------------------------------------------------------------------ */
+        const view     = document.getElementById('view');
+        const list     = document.getElementById('list');
+        const tabs     = document.getElementById('tabs');
+        const logPane  = document.getElementById('log-content');
+
+        /* ------------------------------------------------------------------ */
+        /*  LOAD DATA & FIRST RENDER                                          */
+        /* ------------------------------------------------------------------ */
+
+
+        function generateSampleQuests() {
+            return [
+                {
+                    id: 'demo-1',
+                    title: 'Master the Ancient Arts',
+                    category: 'main',
+                    objective: 'Learn the three forbidden techniques',
+                    description: 'Journey to the Temple of Echoing Winds and seek out the Elder Sage.',
+                    subtasks: [
+                        { text: 'Find the Temple of Echoing Winds', done: true },
+                        { text: 'Complete the Trial of Wisdom', done: true },
+                        { text: 'Survive the Trial of Courage', done: false },
+                        { text: 'Make the Ultimate Sacrifice', done: false }
+                    ],
+                    active: true,
+                    notes: 'The temple is hidden in the Whispering Mountains.'
+                },
+                {
+                    id: 'demo-2',
+                    title: 'The Lost Crown of Astoria', 
+                    category: 'main',
+                    objective: 'Recover the stolen crown before the coronation',
+                    description: 'Track the Shadow Thieves Guild through underground tunnels.',
+                    subtasks: [
+                        { text: 'Investigate the theft at the palace', done: true },
+                        { text: 'Follow thieves trail to sewers', done: true },
+                        { text: 'Infiltrate Shadow Guild hideout', done: false }
+                    ],
+                    active: true,
+                    notes: 'Entry point discovered near the Fish Market.'
+                },
+                {
+                    id: 'demo-3',
+                    title: 'Gather Moonflower Petals',
+                    category: 'side', 
+                    objective: 'Collect 12 moonflower petals for village healer',
+                    description: 'These flowers only bloom under the full moon.',
+                    subtasks: [
+                        { text: 'Wait for full moon', done: true },
+                        { text: 'Journey to Silverleaf Forest', done: false }
+                    ],
+                    active: true,
+                    notes: 'Moonflowers are guarded by forest sprites.'
+                },
+                {
+                    id: 'demo-4',
+                    title: 'The Dragon\'s Hoard',
+                    category: 'done',
+                    prevCat: 'main',
+                    objective: 'Claim the treasure and save the kingdom',
+                    description: 'COMPLETED: Defeated the dragon Pyraxis and claimed the Orb of Peace.',
+                    subtasks: [
+                        { text: 'Defeat Pyraxis in combat', done: true },
+                        { text: 'Claim the Orb of Eternal Peace', done: true }
+                    ],
+                    active: false,
+                    notes: 'QUEST COMPLETED! The kingdom celebrates our victory!'
+                }
+            ];
+        }
+        function loadQuestsLocal () {
+          const savedStr  = localStorage.getItem('questJournal_quests');
+          const orderStr  = localStorage.getItem('questJournal_order');
+
+          if (savedStr) {
+            const parsed = JSON.parse(savedStr);
+            if (Array.isArray(parsed) && parsed.length) {          // ← only accept non-empty
+              quests = parsed;
+              order  = orderStr ? JSON.parse(orderStr) : quests.map(q => q.id);
+              return;                                              // ✅ done
+            }
+          }
+          /* first run or nothing meaningful stored → seed demo data */
+          quests = generateSampleQuests();
+          order  = quests.map(q => q.id);
+          saveQuestsLocal();
+        }
+
+        loadQuestsLocal();
+        refreshAll();          // <-- draw cards + list immediately
+
 
         function canActivate() {
             return quests.filter(q => q.active !== false && q.category !== 'done').length < 3;
@@ -233,10 +328,17 @@ bar.addEventListener('click', async e => {
         document.getElementById('add-quest-btn').onclick = async() => {
 
             // 1) ask back-end for a fresh blank quest
-            const rsp = await fetch('/api/quests/blank', {
-                method: 'POST'
-            });
-            const blank = await rsp.json();
+            const blank = {
+                id: Date.now().toString(),
+                title: 'New Quest',
+                category: 'side', 
+                objective: '',
+                description: '',
+                subtasks: [],
+                active: canActivate(),
+                notes: ''
+            };
+
 
             // 2) if three quests are active already → start the new one inactive
             if (!canActivate()) {
@@ -249,27 +351,7 @@ bar.addEventListener('click', async e => {
             openEditor(quests.length - 1);
         };
 
-        const view = document.getElementById('view'),
-            list = document.getElementById('list'),
-            tabs = document.getElementById('tabs'),
-            logPane = document.getElementById('log-content');
 
-        fetch('/api/quests')
-          .then(r=>r.json())
-          .then(js=>{
-              quests = js;
-
-              order = JSON.parse(localStorage.getItem('questOrder') || '[]');
-              if(order.length !== quests.length) order = quests.map(q=>q.id);
-
-              /* ★ restore which quests were open */
-              const openIds = JSON.parse(localStorage.getItem('openQuests') || '[]');
-              quests.forEach(q => q._open = openIds.includes(q.id));
-
-
-            renderCards();
-            renderList('all');
-        });
 
         /* ------------------------------------------------------------------ */
         /*  CARD COLUMN                                                       */
@@ -299,8 +381,9 @@ bar.addEventListener('click', async e => {
             renderList(document.querySelector('#tabs .tab.active').dataset.cat);
 
             /* ★ persist which quests are open */
-            const openIds = quests.filter(q => q._open).map(q => q.id);
-            localStorage.setItem('openQuests', JSON.stringify(openIds));
+        const openIds = JSON.parse(localStorage.getItem('questJournal_openQuests') || '[]');
+            quests.forEach(q => q._open = openIds.includes(q.id));
+            localStorage.setItem('questJournal_openQuests', JSON.stringify(openIds));
         }
 
         view.addEventListener('click', e => {
@@ -888,7 +971,7 @@ const sBtn   = document.getElementById('settings-btn');
 const sMask  = document.getElementById('settings-mask');
 const sBox   = document.getElementById('settings-box');
 
-sBtn.onclick = openSettings;   // ⚙️
+sBtn.onclick = openSettings;   
 
 function openSettings(){
   fetch('/api/settings').then(r=>r.json()).then(settings=>{
@@ -907,6 +990,12 @@ function drawSettings(s){
      <label>OpenAI&nbsp;API&nbsp;Key
        <input id="s-key" type="password" value="${s.openaiKey||''}">
      </label>
+        <div style="background:#f0f8ff;padding:.8rem;border-radius:4px;margin:.8rem 0;border-left:4px solid #4a90e2">
+          <strong>📱 Data Storage:</strong><br>
+          Your quests are saved in your browser's local storage. They persist between sessions but won't sync across devices. 
+          <br><br>
+          <strong>💡 Tip:</strong> Bookmark this page to keep access to your quests!
+        </div>
 
      <div style="text-align:center;margin-top:1rem">
         <button id="s-save" class="gold-btn">Save</button>
